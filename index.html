@@ -1,133 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LQVE Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta charset="UTF-8">
+    <title>LQVE Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #0f0f0f;
-    color: white;
-    text-align: center;
-}
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
-h1 {
-    font-size: 48px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1s ease forwards;
-}
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ffffff;
+            color: #111;
+        }
 
-p {
-    font-size: 20px;
-    color: #aaa;
-    max-width: 600px;
-    margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1s ease forwards;
-    animation-delay: 0.3s;
-}
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            border-bottom: 1px solid #eee;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-button {
-    padding: 14px 30px;
-    font-size: 16px;
-    border-radius: 30px;
-    border: none;
-    background: #ff0055;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1s ease forwards;
-    animation-delay: 0.6s;
-}
+        .logo img {
+            height: 40px;
+        }
 
-button:hover {
-    background: #ff3366;
-    transform: scale(1.05);
-}
+        .nav-links a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #111;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
 
-.section {
-    padding: 100px 20px;
-}
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
 
-.cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 40px;
-}
+        /* SECTIONS */
+        section {
+            padding: 100px 60px;
+            max-width: 1100px;
+            margin: auto;
+        }
 
-.card {
-    background: #1a1a1a;
-    padding: 30px;
-    width: 260px;
-    border-radius: 20px;
-    transition: 0.3s;
-}
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
 
-.card:hover {
-    transform: translateY(-10px);
-}
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-</style>
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        /* CONTACT BUTTON */
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #C8102E; /* adjust if needed */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .cta-button:hover {
+            opacity: 0.8;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="hero">
-    <h1>Got problems? We LQVE Solutions.</h1>
-    <p>Everything iGaming. Strategy. Traffic. Optimization. Growth.</p>
-    <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
-        Contact Us
-    </button>
-</div>
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <div class="logo">
+            <a href="#home">
+                <img src="/logo.png" alt="LQVE Solutions Logo">
+            </a>
+        </div>
 
-<div class="section">
-    <h2>What We Do</h2>
-    <div class="cards">
-        <div class="card">Affiliate Program Setup</div>
-        <div class="card">Traffic & Monetization Strategy</div>
-        <div class="card">CRM & Retention Optimization</div>
-    </div>
-</div>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-<div class="section" id="contact">
-    <h2>Contact</h2>
-    <p>Let’s build something profitable.</p>
-    <button onclick="window.location.href='mailto:business@lqve.solutions'">
-        Email Us
-    </button>
-</div>
+    <!-- HOME -->
+    <section id="home">
+        <h1>Got problems? We LQVE Solutions.</h1>
+        <p>
+            Strategic consulting and performance solutions for the modern iGaming landscape.
+            We turn complexity into clarity and execution into growth.
+        </p>
+        <a href="#contact" class="cta-button">Get in Touch</a>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <h2>Services</h2>
+        <p>
+            Affiliate strategy. Brand positioning. Traffic optimization. Revenue scaling.
+            We design systems that perform.
+        </p>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>About</h2>
+        <p>
+            LQVE Solutions is built on precision, clarity and execution.
+            We combine operational experience with strategic thinking to deliver measurable results.
+        </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>
+            Ready to scale?
+        </p>
+        <a href="mailto:business@lqve.solutions" class="cta-button">business@lqve.solutions</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 LQVE Solutions. All rights reserved.
+    </footer>
 
 </body>
 </html>
