@@ -3,9 +3,9 @@ main = "worker.js"
 compatibility_date = "2026-02-21"
 
 [vars]
-CONTACT_TO = "business@lqve.solutions"
+CONTACT_TO = "lqvesolutions@gmail.com"
 CONTACT_FROM = "no-reply@lqve.solutions"
 
 [[send_email]]
 name = "CONTACT_EMAIL"
-destination_address = "business@lqve.solutions"
+destination_address = "lqvesolutions@gmail.com"

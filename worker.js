@@ -1,3 +1,5 @@
+import { EmailMessage } from "cloudflare:email";
+
 const MAX_FIELD_LENGTH = {
   name: 120,
   company: 120,
@@ -31,10 +33,15 @@ function validate(payload) {
 
 function buildRawEmail({ from, to, subject, text }) {
   const safeSubject = subject.replace(/[\r\n]+/g, " ").trim();
+  const fromDomain = (from.split("@")[1] || "lqve.solutions").trim();
+  const messageId = `<${crypto.randomUUID()}@${fromDomain}>`;
+  const date = new Date().toUTCString();
   return [
     `From: ${from}`,
     `To: ${to}`,
     `Subject: ${safeSubject}`,
+    `Message-ID: ${messageId}`,
+    `Date: ${date}`,
     "MIME-Version: 1.0",
     'Content-Type: text/plain; charset="UTF-8"',
     "Content-Transfer-Encoding: 8bit",
@@ -119,8 +126,10 @@ export default {
         new EmailMessage(fromAddress, destination, raw),
       );
       return json({ ok: true });
-    } catch {
-      return json({ error: "Email delivery failed." }, 502);
+    } catch (error) {
+      const details = error && error.message ? error.message : String(error);
+      console.error("Email send failed:", details);
+      return json({ error: "Email delivery failed.", details }, 502);
     }
   },
 };
