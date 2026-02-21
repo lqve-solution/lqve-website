@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>LQVE Solutions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LQVE Solutions helps iGaming brands scale with performance strategy, affiliate infrastructure, and market intelligence.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://lqve.solutions/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LQVE Solutions">
+    <meta property="og:description" content="Everything iGaming. Structured for performance. Built to scale.">
+    <meta property="og:url" content="https://lqve.solutions/">
+    <meta property="og:image" content="https://lqve.solutions/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LQVE Solutions">
+    <meta name="twitter:description" content="Everything iGaming. Structured for performance. Built to scale.">
+    <meta name="twitter:image" content="https://lqve.solutions/logo.png">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,6 +24,20 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#111111">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "LQVE Solutions",
+            "url": "https://lqve.solutions/",
+            "logo": "https://lqve.solutions/logo.png",
+            "email": "business@lqve.solutions",
+            "sameAs": []
+        }
+    </script>
 
     <style>
         :root {
@@ -266,6 +292,19 @@
             resize: vertical;
         }
 
+        .hidden-field {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .contact-note {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
         .form-status {
             margin: 8px 0 0;
             font-size: 0.95rem;
@@ -411,7 +450,7 @@
 
 <header>
     <a href="#top">
-        <img src="logo.png" alt="LQVE Logo">
+        <img src="logo.png" alt="LQVE Logo" fetchpriority="high">
     </a>
     <nav>
         <a href="#top">Home</a>
@@ -434,15 +473,15 @@
 
         <div class="industry-strip">
             <div class="industry-card fade-in delay-2">
-                <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=900&q=80" alt="Poker chips on gaming table">
+                <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=900&q=80" alt="Poker chips on gaming table" loading="lazy" decoding="async">
                 <span>Live Casino Ops</span>
             </div>
             <div class="industry-card fade-in delay-3">
-                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=900&q=80" alt="Slot machine lights">
+                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=900&q=80" alt="Slot machine lights" loading="lazy" decoding="async">
                 <span>Slot Product Strategy</span>
             </div>
             <div class="industry-card fade-in delay-4">
-                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Sports betting environment with screens">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Sports betting environment with screens" loading="lazy" decoding="async">
                 <span>Sportsbook Growth</span>
             </div>
         </div>
@@ -473,14 +512,14 @@
         </p>
         <div class="market-grid">
             <article class="market-panel fade-in delay-2">
-                <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1200&q=80" alt="Roulette wheel close-up">
+                <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1200&q=80" alt="Roulette wheel close-up" loading="lazy" decoding="async">
                 <div class="market-panel-content">
                     <h3>Retention & VIP Segments</h3>
                     <p>Segment players by value and behavior to improve retention without overspending bonuses.</p>
                 </div>
             </article>
             <article class="market-panel fade-in delay-3">
-                <img src="https://images.unsplash.com/photo-1606166325683-e6deb697d301?auto=format&fit=crop&w=1200&q=80" alt="Betting analytics dashboard">
+                <img src="https://images.unsplash.com/photo-1606166325683-e6deb697d301?auto=format&fit=crop&w=1200&q=80" alt="Betting analytics dashboard" loading="lazy" decoding="async">
                 <div class="market-panel-content">
                     <h3>Acquisition Efficiency</h3>
                     <p>Align affiliate spend and funnel metrics so every channel is benchmarked by real lifetime value.</p>
@@ -510,11 +549,18 @@
             <label for="contact-company">Company</label>
             <input id="contact-company" name="company" type="text" autocomplete="organization" required>
 
-            <label for="contact-position">Position</label>
-            <input id="contact-position" name="position" type="text" autocomplete="organization-title" required>
+            <label for="contact-details">Email / Contact</label>
+            <input id="contact-details" name="contact" type="text" autocomplete="email" placeholder="name@company.com or Telegram/WhatsApp" required>
 
             <label for="contact-message">Message</label>
             <textarea id="contact-message" name="message" required></textarea>
+
+            <input class="hidden-field" type="text" name="website" tabindex="-1" autocomplete="off">
+            <input type="hidden" name="referrer" id="contact-referrer">
+            <input type="hidden" name="source" id="contact-source">
+
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACgTxFofm0S--lYk" data-theme="light"></div>
+            <p class="contact-note">Protected by Cloudflare Turnstile.</p>
 
             <button type="submit" class="cta-button">Send Message</button>
             <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
@@ -527,22 +573,39 @@
     &copy; 2026 LQVE Solutions. Built for performance.
 </footer>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
     (function () {
         const form = document.getElementById('contact-form');
         const status = document.getElementById('form-status');
         if (!form || !status) return;
+        const referrer = document.getElementById('contact-referrer');
+        const source = document.getElementById('contact-source');
+        if (referrer) referrer.value = document.referrer || '';
+        if (source) source.value = window.location.href;
 
         form.addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const submitButton = form.querySelector('button[type="submit"]');
+            const turnstileField = form.querySelector('input[name="cf-turnstile-response"]');
+            const turnstileToken = turnstileField ? turnstileField.value : '';
             const payload = {
                 name: form.name.value.trim(),
                 company: form.company.value.trim(),
-                position: form.position.value.trim(),
-                message: form.message.value.trim()
+                contact: form.contact.value.trim(),
+                message: form.message.value.trim(),
+                website: form.website.value.trim(),
+                referrer: form.referrer.value.trim(),
+                source: form.source.value.trim(),
+                turnstileToken: turnstileToken
             };
+
+            if (!payload.turnstileToken) {
+                status.className = 'form-status error';
+                status.textContent = 'Please complete the anti-spam check and try again.';
+                return;
+            }
 
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
@@ -563,6 +626,9 @@
                 }
 
                 form.reset();
+                if (window.turnstile && typeof window.turnstile.reset === 'function') {
+                    window.turnstile.reset();
+                }
                 status.className = 'form-status success';
                 status.textContent = 'Message sent. We will get back to you shortly.';
             } catch (error) {
