@@ -1,169 +1,580 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>LQVE Solutions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <style>
+        :root {
+            --bg: #f3f3f3;
+            --surface: #ffffff;
+            --text: #111111;
+            --muted: #555555;
+            --accent: #e10600;
+            --accent-dark: #b80000;
+        }
+
         html {
             scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #ffffff;
-            color: #111;
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at 10% -10%, rgba(225, 6, 0, 0.08), transparent 35%),
+                radial-gradient(circle at 90% 20%, rgba(0, 0, 0, 0.05), transparent 30%),
+                var(--bg);
+            color: var(--text);
         }
 
-        /* NAVBAR */
-        .navbar {
+        /* HEADER */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 80px;
-            border-bottom: 1px solid #eee;
-            background-color: #ffffff;
-            position: sticky;
-            top: 0;
+            padding: 20px 80px;
+            box-sizing: border-box;
             z-index: 1000;
         }
 
-        .logo img {
-            height: 80px;
+        header img {
+            height: 60px;
+            cursor: pointer;
         }
 
-        .nav-links a {
-            margin-left: 30px;
+        nav a {
+            margin-left: 40px;
             text-decoration: none;
-            color: #111;
+            color: var(--text);
             font-weight: 500;
-            transition: opacity 0.2s ease;
+            transition: color 0.3s ease;
         }
 
-        .nav-links a:hover {
-            opacity: 0.6;
+        nav a:hover {
+            color: #e10600;
+        }
+
+        nav a:focus-visible,
+        .cta-button:focus-visible {
+            outline: 2px solid #e10600;
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+
+        main {
+            padding-top: 140px;
+        }
+
+        section {
+            scroll-margin-top: 120px;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 110px 20px 130px;
+            max-width: 980px;
+            margin: auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 7vw, 4.6rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: clamp(1.05rem, 2.3vw, 1.35rem);
+            color: var(--muted);
+            margin-bottom: 30px;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-line {
+            width: 88px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #ff5b57);
+            margin: 40px auto;
+            border-radius: 2px;
+        }
+
+        .industry-strip {
+            margin: 48px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            max-width: 980px;
+        }
+
+        .industry-card {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            min-height: 180px;
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+        }
+
+        .industry-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.1) contrast(1.05);
+        }
+
+        .industry-card span {
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            background: rgba(0, 0, 0, 0.66);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 34px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 22px rgba(225, 6, 0, 0.22);
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 26px rgba(184, 0, 0, 0.25);
         }
 
         /* SECTIONS */
         section {
-            padding: 100px 60px;
+            padding: 100px 24px;
+            text-align: center;
             max-width: 1100px;
             margin: auto;
-            text-align: center;
         }
 
-        h1 {
-            font-size: 48px;
+        section:nth-of-type(even) {
+            background-color: var(--surface);
+            border-radius: 20px;
+        }
+
+        section h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            letter-spacing: -0.02em;
             margin-bottom: 20px;
-            font-weight: 600;
         }
 
-        h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        p {
+        section p {
             font-size: 18px;
-            line-height: 1.6;
-            max-width: 700px;
+            color: #555;
         }
 
-        /* CONTACT BUTTON */
-        .cta-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 24px;
-            background-color: #C8102E; /* adjust if needed */
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
+        /* SERVICES GRID */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .service-card {
+            background: var(--surface);
+            padding: 40px 30px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        #contact a {
+            color: var(--accent);
             font-weight: 600;
-            transition: opacity 0.2s ease;
+            text-decoration-thickness: 2px;
         }
 
-        .cta-button:hover {
-            opacity: 0.8;
+        .contact-form {
+            margin: 30px auto 0;
+            max-width: 760px;
+            text-align: left;
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-form label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.16);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font: inherit;
+            background: #fff;
+            color: var(--text);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: 2px solid rgba(225, 6, 0, 0.22);
+            border-color: var(--accent);
+        }
+
+        .contact-form textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .form-status {
+            margin: 8px 0 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            min-height: 1.4em;
+        }
+
+        .form-status.success {
+            color: #116329;
+        }
+
+        .form-status.error {
+            color: #9a150f;
+        }
+
+        .market-grid {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+
+        .market-panel {
+            background: var(--surface);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .market-panel img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .market-panel-content {
+            padding: 16px 18px 20px;
+        }
+
+        .market-panel h3 {
+            margin: 0 0 8px;
+        }
+
+        .market-panel p {
+            margin: 0;
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        /* FADE IN */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.25s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.55s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* FOOTER */
         footer {
+            padding: 60px 20px;
             text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid #eee;
             font-size: 14px;
-            color: #666;
+            color: #777;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 16px 20px;
+                flex-wrap: wrap;
+                row-gap: 12px;
+            }
+
+            header img {
+                height: 44px;
+            }
+
+            nav {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            nav a {
+                margin-left: 0;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .industry-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .market-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                animation: none;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <header class="navbar">
-        <div class="logo">
-            <a href="#home">
-                <img src="/logo.png" alt="LQVE Solutions Logo">
-            </a>
+<header>
+    <a href="#top">
+        <img src="logo.png" alt="LQVE Logo">
+    </a>
+    <nav>
+        <a href="#top">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<main id="top">
+
+    <div class="hero">
+        <h1 class="fade-in delay-1">Got problems? We LQVE Solutions.</h1>
+        <p class="fade-in delay-2">
+            Everything iGaming.
+            Structured for performance. Built to scale.
+        </p>
+        <div class="hero-line fade-in delay-3"></div>
+        <a href="#contact" class="cta-button fade-in delay-4">Get in Touch</a>
+
+        <div class="industry-strip">
+            <div class="industry-card fade-in delay-2">
+                <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=900&q=80" alt="Poker chips on gaming table">
+                <span>Live Casino Ops</span>
+            </div>
+            <div class="industry-card fade-in delay-3">
+                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=900&q=80" alt="Slot machine lights">
+                <span>Slot Product Strategy</span>
+            </div>
+            <div class="industry-card fade-in delay-4">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Sports betting environment with screens">
+                <span>Sportsbook Growth</span>
+            </div>
         </div>
+    </div>
 
-        <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-
-    <!-- HOME -->
-    <section id="home">
-        <h1>Got problems? We LQVE Solutions.</h1>
-        <p>
-            Strategic consulting and performance solutions for the modern iGaming landscape.
-            We turn complexity into clarity and execution into growth.
-        </p>
-        <a href="#contact" class="cta-button">Get in Touch</a>
-    </section>
-
-    <!-- SERVICES -->
     <section id="services">
-        <h2>Services</h2>
-        <p>
-            Affiliate strategy. Brand positioning. Traffic optimization. Revenue scaling.
-            We design systems that perform.
-        </p>
+        <h2 class="fade-in delay-1">Services</h2>
+        <div class="services-grid">
+            <div class="service-card fade-in delay-2">
+                <h3>Performance Strategy</h3>
+                <p>Structured frameworks designed to maximize revenue efficiency.</p>
+            </div>
+            <div class="service-card fade-in delay-3">
+                <h3>Affiliate Infrastructure</h3>
+                <p>Scalable systems built to support long-term growth.</p>
+            </div>
+            <div class="service-card fade-in delay-4">
+                <h3>Market Expansion</h3>
+                <p>Strategic positioning to unlock new territories and verticals.</p>
+            </div>
+        </div>
     </section>
 
-    <!-- ABOUT -->
+    <section id="markets">
+        <h2 class="fade-in delay-1">Why LQVE?</h2>
+        <p class="fade-in delay-2">
+            We track player behavior, bonus economics, and acquisition performance across regulated iGaming markets.
+        </p>
+        <div class="market-grid">
+            <article class="market-panel fade-in delay-2">
+                <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1200&q=80" alt="Roulette wheel close-up">
+                <div class="market-panel-content">
+                    <h3>Retention & VIP Segments</h3>
+                    <p>Segment players by value and behavior to improve retention without overspending bonuses.</p>
+                </div>
+            </article>
+            <article class="market-panel fade-in delay-3">
+                <img src="https://images.unsplash.com/photo-1606166325683-e6deb697d301?auto=format&fit=crop&w=1200&q=80" alt="Betting analytics dashboard">
+                <div class="market-panel-content">
+                    <h3>Acquisition Efficiency</h3>
+                    <p>Align affiliate spend and funnel metrics so every channel is benchmarked by real lifetime value.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
     <section id="about">
-        <h2>About</h2>
-        <p>
-            LQVE Solutions is built on precision, clarity and execution.
-            We combine operational experience with strategic thinking to deliver measurable results.
+        <h2 class="fade-in delay-1">About</h2>
+        <p class="fade-in delay-2">
+            LQVE Solutions was built to simplify complexity in the iGaming space.
+            We combine performance thinking with strategic clarity to help brands scale smarter.
         </p>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
-        <h2>Contact</h2>
-        <p>
-            Ready to scale?
+        <h2 class="fade-in delay-1">Contact</h2>
+        <p class="fade-in delay-2">
+            Ready to build something serious? Let's talk at
+            <a href="mailto:business@lqve.solutions">business@lqve.solutions</a>.
         </p>
-        <a href="mailto:business@lqve.solutions" class="cta-button">business@lqve.solutions</a>
+        <form id="contact-form" class="contact-form fade-in delay-3" action="/api/contact" method="post">
+            <label for="contact-name">Name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required>
+
+            <label for="contact-company">Company</label>
+            <input id="contact-company" name="company" type="text" autocomplete="organization" required>
+
+            <label for="contact-position">Position</label>
+            <input id="contact-position" name="position" type="text" autocomplete="organization-title" required>
+
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" required></textarea>
+
+            <button type="submit" class="cta-button">Send Message</button>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        </form>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        © 2026 LQVE Solutions. All rights reserved.
-    </footer>
+</main>
+
+<footer>
+    &copy; 2026 LQVE Solutions. Built for performance.
+</footer>
+
+<script>
+    (function () {
+        const form = document.getElementById('contact-form');
+        const status = document.getElementById('form-status');
+        if (!form || !status) return;
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            const payload = {
+                name: form.name.value.trim(),
+                company: form.company.value.trim(),
+                position: form.position.value.trim(),
+                message: form.message.value.trim()
+            };
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            status.className = 'form-status';
+            status.textContent = '';
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json().catch(function () { return {}; });
+
+                if (!response.ok) {
+                    throw new Error(result.error || 'Unable to send your message right now.');
+                }
+
+                form.reset();
+                status.className = 'form-status success';
+                status.textContent = 'Message sent. We will get back to you shortly.';
+            } catch (error) {
+                status.className = 'form-status error';
+                status.textContent = error.message || 'Submission failed. Please email business@lqve.solutions.';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+            }
+        });
+    })();
+</script>
 
 </body>
 </html>
