@@ -47,6 +47,7 @@
             --muted: #555555;
             --accent: #e10600;
             --accent-dark: #b80000;
+            --header-offset: 140px;
         }
 
         html {
@@ -61,6 +62,35 @@
                 radial-gradient(circle at 90% 20%, rgba(0, 0, 0, 0.05), transparent 30%),
                 var(--bg);
             color: var(--text);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            z-index: -1;
+            border-radius: 999px;
+            filter: blur(12px);
+            animation: drift 16s ease-in-out infinite alternate;
+        }
+
+        body::before {
+            width: 320px;
+            height: 320px;
+            right: -90px;
+            top: 90px;
+            background: radial-gradient(circle, rgba(225, 6, 0, 0.22), rgba(225, 6, 0, 0.02) 70%);
+        }
+
+        body::after {
+            width: 260px;
+            height: 260px;
+            left: -80px;
+            top: 420px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.02) 72%);
+            animation-delay: 0.9s;
         }
 
         /* HEADER */
@@ -104,11 +134,11 @@
         }
 
         main {
-            padding-top: 140px;
+            padding-top: var(--header-offset);
         }
 
         section {
-            scroll-margin-top: 120px;
+            scroll-margin-top: calc(var(--header-offset) - 12px);
         }
 
         /* HERO */
@@ -117,6 +147,20 @@
             padding: 110px 20px 130px;
             max-width: 980px;
             margin: auto;
+        }
+
+        .hero-kicker {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(225, 6, 0, 0.08);
+            border: 1px solid rgba(225, 6, 0, 0.15);
+            border-radius: 999px;
+            padding: 8px 12px;
+            margin-bottom: 20px;
         }
 
         .hero h1 {
@@ -142,6 +186,7 @@
             background: linear-gradient(90deg, var(--accent), #ff5b57);
             margin: 40px auto;
             border-radius: 2px;
+            animation: pulseLine 2.2s ease-in-out infinite;
         }
 
         .industry-strip {
@@ -156,8 +201,9 @@
             position: relative;
             border-radius: 14px;
             overflow: hidden;
-            min-height: 180px;
+            min-height: 230px;
             box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+            isolation: isolate;
         }
 
         .industry-card img {
@@ -166,19 +212,52 @@
             object-fit: cover;
             display: block;
             filter: saturate(1.1) contrast(1.05);
+            transform: scale(1.01);
+            transition: transform 0.6s ease;
         }
 
-        .industry-card span {
+        .industry-card::before {
+            content: "";
             position: absolute;
-            left: 12px;
-            bottom: 12px;
-            background: rgba(0, 0, 0, 0.66);
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 18%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .industry-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(140deg, rgba(255, 255, 255, 0.2), transparent 34%, rgba(225, 6, 0, 0.22));
+            mix-blend-mode: soft-light;
+            z-index: 2;
+        }
+
+        .industry-card-content {
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 14px;
+            z-index: 3;
+        }
+
+        .industry-card h3 {
+            margin: 0 0 8px;
             color: #fff;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 6px 10px;
-            border-radius: 999px;
-            letter-spacing: 0.02em;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+        }
+
+        .industry-card p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            transform: translateY(6px);
+            opacity: 0.9;
+            transition: transform 0.35s ease, opacity 0.35s ease;
         }
 
         .cta-button {
@@ -223,26 +302,232 @@
             color: #555;
         }
 
-        /* SERVICES GRID */
-        .services-grid {
+        .service-separator {
+            max-width: 1080px;
+            margin: 0 auto 16px;
+            padding: 0 24px;
+        }
+
+        .separator-track {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
         }
 
-        .service-card {
+        .separator-pill {
             background: var(--surface);
-            padding: 40px 30px;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2a2a2a;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
         }
 
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        .services-header {
+            max-width: 760px;
+            margin: 0 auto 26px;
+        }
+
+        .services-header p {
+            margin: 0 auto 24px;
+            max-width: 680px;
+        }
+
+        .pillar-grid {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .pillar-card {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 20px;
+            align-items: stretch;
+            text-align: left;
+        }
+
+        .pillar-card.media-right {
+            grid-template-columns: minmax(0, 1fr) 280px;
+        }
+
+        .pillar-card.media-right .pillar-media {
+            order: 2;
+        }
+
+        .pillar-card.media-right .pillar-copy {
+            order: 1;
+        }
+
+        .pillar-media {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            min-height: 220px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+            background: #151515;
+        }
+
+        .pillar-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+            animation: mediaFloat 7s ease-in-out infinite alternate;
+        }
+
+        .pillar-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(140deg, rgba(255,255,255,0.18), transparent 34%, rgba(225,6,0,0.22));
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+
+        .pillar-media::before {
+            content: "";
+            position: absolute;
+            inset: -20% -35% auto;
+            height: 46%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+            transform: rotate(-8deg) translateX(-70%);
+            opacity: 0.38;
+            pointer-events: none;
+            animation: mediaSheen 6.4s ease-in-out infinite;
+        }
+
+        .pillar-copy {
+            align-self: center;
+        }
+
+        .pillar-card h3 {
+            margin: 0 0 12px;
+            font-size: 1.2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .pillar-list {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .pillar-outcome {
+            margin-top: 14px;
+            background: rgba(225, 6, 0, 0.07);
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #1e1e1e;
+            font-weight: 600;
+        }
+
+        .work-grid {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            text-align: left;
+        }
+
+        .work-step {
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .work-step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .work-step h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+        }
+
+        .work-step p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        .client-grid {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .client-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            position: relative;
+        }
+
+        .client-card::after {
+            content: "";
+            position: absolute;
+            inset: auto -30% 0;
+            height: 34%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: rotate(-6deg) translateX(-70%);
+            opacity: 0.28;
+            pointer-events: none;
+            animation: mediaSheen 7.2s ease-in-out infinite;
+        }
+
+        .client-card img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .client-card p {
+            margin: 0;
+            padding: 12px;
+            font-weight: 600;
+            color: #252525;
+        }
+
+        .client-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .industry-card:hover img,
+        .market-panel:hover img {
+            transform: scale(1.06);
+        }
+
+        .industry-card:hover p {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .service-card h3 {
@@ -341,6 +626,7 @@
             height: 210px;
             object-fit: cover;
             display: block;
+            transition: transform 0.6s ease;
         }
 
         .market-panel-content {
@@ -361,30 +647,48 @@
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .delay-1 {
-            animation-delay: 0.1s;
+            transition-delay: 0.08s;
         }
 
         .delay-2 {
-            animation-delay: 0.25s;
+            transition-delay: 0.18s;
         }
 
         .delay-3 {
-            animation-delay: 0.4s;
+            transition-delay: 0.28s;
         }
 
         .delay-4 {
-            animation-delay: 0.55s;
+            transition-delay: 0.38s;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes pulseLine {
+            0%, 100% { transform: scaleX(1); opacity: 0.9; }
+            50% { transform: scaleX(1.18); opacity: 1; }
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(28px) translateX(14px); }
+        }
+
+        @keyframes mediaFloat {
+            0% { transform: scale(1.02) translateY(0); }
+            100% { transform: scale(1.06) translateY(-6px); }
+        }
+
+        @keyframes mediaSheen {
+            0% { transform: rotate(-8deg) translateX(-70%); }
+            100% { transform: rotate(-8deg) translateX(90%); }
         }
 
         /* FOOTER */
@@ -395,8 +699,18 @@
             color: #777;
         }
 
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 768px) {
+            :root {
+                --header-offset: 188px;
+            }
+
             header {
                 padding: 16px 20px;
                 flex-wrap: wrap;
@@ -430,6 +744,60 @@
             .market-grid {
                 grid-template-columns: 1fr;
             }
+
+            .separator-track,
+            .work-grid,
+            .client-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pillar-card,
+            .pillar-card.media-right {
+                grid-template-columns: 1fr;
+            }
+
+            .pillar-card.media-right .pillar-media,
+            .pillar-card.media-right .pillar-copy {
+                order: initial;
+            }
+
+            body::before,
+            body::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+            :root {
+                --header-offset: 206px;
+            }
+
+            .hero {
+                padding: 86px 16px 96px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 320px;
+                text-align: center;
+            }
+
+            .separator-pill {
+                font-size: 0.82rem;
+                padding: 10px 12px;
+            }
+
+            section {
+                padding: 84px 16px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -440,7 +808,19 @@
             .fade-in {
                 opacity: 1;
                 transform: none;
+                transition: none;
+            }
+
+            body::before,
+            body::after,
+            .hero-line,
+            .industry-card img,
+            .market-panel img,
+            .pillar-media img,
+            .pillar-media::before,
+            .client-card::after {
                 animation: none;
+                transition: none;
             }
         }
     </style>
@@ -463,6 +843,7 @@
 <main id="top">
 
     <div class="hero">
+        <span class="hero-kicker fade-in delay-1">Performance-Led iGaming Advisory</span>
         <h1 class="fade-in delay-1">Got problems? We LQVE Solutions.</h1>
         <p class="fade-in delay-2">
             Everything iGaming.
@@ -473,73 +854,171 @@
 
         <div class="industry-strip">
             <div class="industry-card fade-in delay-2">
-                <img src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?auto=format&fit=crop&w=900&q=80" alt="Poker chips on gaming table" loading="lazy" decoding="async">
-                <span>Live Casino Ops</span>
+                <img src="images/analytics.jpg" alt="Performance graph and market analytics" loading="lazy" decoding="async">
+                <div class="industry-card-content">
+                    <h3>Revenue &amp; Funnel Audit</h3>
+                    <p>We identify leaks in traffic, bonus abuse, retention, CRM, and affiliate structure.</p>
+                </div>
             </div>
             <div class="industry-card fade-in delay-3">
-                <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?auto=format&fit=crop&w=900&q=80" alt="Slot machine lights" loading="lazy" decoding="async">
-                <span>Slot Product Strategy</span>
+                <img src="images/slots.jpg" alt="Strategy workspace with planning tools" loading="lazy" decoding="async">
+                <div class="industry-card-content">
+                    <h3>Growth Strategy Architecture</h3>
+                    <p>We restructure funnels, optimize GEOs, and scale what works.</p>
+                </div>
             </div>
             <div class="industry-card fade-in delay-4">
-                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Sports betting environment with screens" loading="lazy" decoding="async">
-                <span>Sportsbook Growth</span>
+                <img src="images/sportsbook.jpg" alt="Secure private consultation setting" loading="lazy" decoding="async">
+                <div class="industry-card-content">
+                    <h3>Zero Data Exposure Policy</h3>
+                    <p>Absolute confidentiality. Sensitive iGaming operations handled privately.</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <section class="service-separator">
+        <div class="separator-track">
+            <div class="separator-pill fade-in delay-1">Deep operator diagnostics</div>
+            <div class="separator-pill fade-in delay-2">Growth systems that scale</div>
+            <div class="separator-pill fade-in delay-3">Private strategic execution</div>
+        </div>
+    </section>
+
     <section id="services">
-        <h2 class="fade-in delay-1">Services</h2>
-        <div class="services-grid">
-            <div class="service-card fade-in delay-2">
-                <h3>Performance Strategy</h3>
-                <p>Structured frameworks designed to maximize revenue efficiency.</p>
-            </div>
-            <div class="service-card fade-in delay-3">
-                <h3>Affiliate Infrastructure</h3>
-                <p>Scalable systems built to support long-term growth.</p>
-            </div>
-            <div class="service-card fade-in delay-4">
-                <h3>Market Expansion</h3>
-                <p>Strategic positioning to unlock new territories and verticals.</p>
-            </div>
+        <div class="services-header">
+            <h2 class="fade-in delay-1">Services Built for iGaming Operators Who Want to Scale.</h2>
+            <p class="fade-in delay-2">From audit to execution. Structured systems. Measurable growth.</p>
+            <a href="#contact" class="cta-button fade-in delay-3">Book a Private Consultation</a>
+        </div>
+
+        <div class="pillar-grid">
+            <article class="pillar-card fade-in delay-1">
+                <div class="pillar-media">
+                    <img src="images/service-audit.jpg" alt="Operator audit and revenue review meeting" loading="lazy" decoding="async">
+                </div>
+                <div class="pillar-copy">
+                    <h3>Revenue &amp; Performance Audit</h3>
+                    <ul class="pillar-list">
+                        <li>Funnel analysis (Click -> Reg -> FTD -> Retention)</li>
+                        <li>Bonus and abuse leak detection</li>
+                        <li>Affiliate deal structure review</li>
+                        <li>CRM and automation analysis</li>
+                        <li>GEO profitability breakdown</li>
+                        <li>Traffic quality evaluation</li>
+                    </ul>
+                    <p class="pillar-outcome">Outcome: Identify where you are losing money and where to scale safely.</p>
+                </div>
+            </article>
+            <article class="pillar-card media-right fade-in delay-2">
+                <div class="pillar-media">
+                    <img src="images/service-growth.jpg" alt="Growth architecture and planning session" loading="lazy" decoding="async">
+                </div>
+                <div class="pillar-copy">
+                    <h3>Growth &amp; Scaling Architecture</h3>
+                    <ul class="pillar-list">
+                        <li>Affiliate program structuring</li>
+                        <li>CPA and Hybrid deal modeling</li>
+                        <li>GEO expansion strategy</li>
+                        <li>Retention and VIP structuring</li>
+                        <li>Sportsbook vs Casino balance optimization</li>
+                        <li>KPI-based scaling strategy</li>
+                    </ul>
+                    <p class="pillar-outcome">Outcome: Turn controlled growth into predictable revenue.</p>
+                </div>
+            </article>
+            <article class="pillar-card fade-in delay-3">
+                <div class="pillar-media">
+                    <img src="images/service-operations.jpg" alt="Operational optimization and process control discussion" loading="lazy" decoding="async">
+                </div>
+                <div class="pillar-copy">
+                    <h3>Operational Optimization</h3>
+                    <ul class="pillar-list">
+                        <li>Internal process optimization</li>
+                        <li>Payment flow and risk strategy review</li>
+                        <li>Fraud mitigation guidance</li>
+                        <li>CRM flow building (Customer.io / automation logic)</li>
+                        <li>Team structure consulting</li>
+                    </ul>
+                    <p class="pillar-outcome">Outcome: Reduce chaos. Increase efficiency. Scale without breaking operations.</p>
+                </div>
+            </article>
+            <article class="pillar-card media-right fade-in delay-4">
+                <div class="pillar-media">
+                    <img src="images/service-advisory.jpg" alt="Confidential executive advisory meeting" loading="lazy" decoding="async">
+                </div>
+                <div class="pillar-copy">
+                    <h3>Confidential Strategic Advisory</h3>
+                    <ul class="pillar-list">
+                        <li>Private consulting sessions</li>
+                        <li>NDA-first engagement</li>
+                        <li>Long-term advisory retainers</li>
+                        <li>Executive-level decision support</li>
+                    </ul>
+                    <p class="pillar-outcome">Sensitive matters handled discreetly.</p>
+                </div>
+            </article>
         </div>
     </section>
 
     <section id="markets">
-        <h2 class="fade-in delay-1">Why LQVE?</h2>
-        <p class="fade-in delay-2">
-            We track player behavior, bonus economics, and acquisition performance across regulated iGaming markets.
-        </p>
-        <div class="market-grid">
-            <article class="market-panel fade-in delay-2">
-                <img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1200&q=80" alt="Roulette wheel close-up" loading="lazy" decoding="async">
-                <div class="market-panel-content">
-                    <h3>Retention & VIP Segments</h3>
-                    <p>Segment players by value and behavior to improve retention without overspending bonuses.</p>
-                </div>
+        <h2 class="fade-in delay-1">How We Work</h2>
+        <p class="fade-in delay-2">A clear process built for speed, privacy, and execution quality.</p>
+        <div class="work-grid">
+            <article class="work-step fade-in delay-1">
+                <span class="work-step-number">1</span>
+                <h3>Initial Call</h3>
+                <p>We align on goals, constraints, and context. NDA-first if needed.</p>
             </article>
-            <article class="market-panel fade-in delay-3">
-                <img src="https://images.unsplash.com/photo-1606166325683-e6deb697d301?auto=format&fit=crop&w=1200&q=80" alt="Betting analytics dashboard" loading="lazy" decoding="async">
-                <div class="market-panel-content">
-                    <h3>Acquisition Efficiency</h3>
-                    <p>Align affiliate spend and funnel metrics so every channel is benchmarked by real lifetime value.</p>
-                </div>
+            <article class="work-step fade-in delay-2">
+                <span class="work-step-number">2</span>
+                <h3>Deep Audit</h3>
+                <p>We inspect funnels, economics, operations, and risk to isolate performance leaks.</p>
+            </article>
+            <article class="work-step fade-in delay-3">
+                <span class="work-step-number">3</span>
+                <h3>Strategic Plan</h3>
+                <p>You receive a focused roadmap with priorities, KPIs, and execution sequence.</p>
+            </article>
+            <article class="work-step fade-in delay-4">
+                <span class="work-step-number">4</span>
+                <h3>Implementation Support</h3>
+                <p>We support rollout, optimization, and control loops so growth stays predictable.</p>
             </article>
         </div>
     </section>
 
     <section id="about">
-        <h2 class="fade-in delay-1">About</h2>
-        <p class="fade-in delay-2">
-            LQVE Solutions was built to simplify complexity in the iGaming space.
-            We combine performance thinking with strategic clarity to help brands scale smarter.
-        </p>
+        <h2 class="fade-in delay-1">Who We Work With</h2>
+        <p class="fade-in delay-2">We partner with operators and teams who want controlled scale, stronger margins, and cleaner execution.</p>
+        <div class="client-grid">
+            <article class="client-card fade-in delay-1">
+                <img src="images/client-startup.jpg" alt="Casino startup operations" loading="lazy" decoding="async">
+                <p>Casino startups</p>
+            </article>
+            <article class="client-card fade-in delay-2">
+                <img src="images/client-operator.jpg" alt="Established operators scaling performance" loading="lazy" decoding="async">
+                <p>Established operators scaling multi-GEO</p>
+            </article>
+            <article class="client-card fade-in delay-3">
+                <img src="images/client-affiliate.jpg" alt="Affiliate program restructuring" loading="lazy" decoding="async">
+                <p>Affiliate programs needing restructuring</p>
+            </article>
+            <article class="client-card fade-in delay-4">
+                <img src="images/client-risk.jpg" alt="Payment and risk-heavy iGaming operations" loading="lazy" decoding="async">
+                <p>Payment and risk-heavy brands</p>
+            </article>
+            <article class="client-card fade-in delay-4">
+                <img src="images/client-cross-vertical-2.jpg" alt="Cross-vertical operator growth strategy" loading="lazy" decoding="async">
+                <p>Cross-vertical growth operators</p>
+            </article>
+        </div>
     </section>
 
     <section id="contact">
-        <h2 class="fade-in delay-1">Contact</h2>
+        <h2 class="fade-in delay-1">Ready to Fix the Leaks and Scale Smart?</h2>
         <p class="fade-in delay-2">
-            Ready to build something serious? Let's talk at
+            Let’s discuss your operation privately. You can also reach us at
             <a href="mailto:business@lqve.solutions">business@lqve.solutions</a>.
         </p>
         <form id="contact-form" class="contact-form fade-in delay-3" action="/api/contact" method="post">
@@ -570,7 +1049,7 @@
 </main>
 
 <footer>
-    &copy; 2026 LQVE Solutions. Built for performance.
+    &copy; 2026 LQVE Solutions. Built for performance. <a href="privacy.html">Privacy</a>
 </footer>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -578,6 +1057,30 @@
     (function () {
         const form = document.getElementById('contact-form');
         const status = document.getElementById('form-status');
+        const revealItems = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            revealItems.forEach(function (item) {
+                item.classList.add('is-visible');
+            });
+        } else if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                });
+            }, { threshold: 0.16, rootMargin: '0px 0px -10% 0px' });
+
+            revealItems.forEach(function (item) {
+                observer.observe(item);
+            });
+        } else {
+            revealItems.forEach(function (item) {
+                item.classList.add('is-visible');
+            });
+        }
+
         if (!form || !status) return;
         const referrer = document.getElementById('contact-referrer');
         const source = document.getElementById('contact-source');
