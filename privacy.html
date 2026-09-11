@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | LQVE Solutions</title>
     <meta name="description" content="Privacy policy for LQVE Solutions contact form and website.">
+    <link rel="canonical" href="https://lqve.solutions/privacy.html">
+    <link rel="icon" href="/favicon-32.png" type="image/png">
+    <meta name="theme-color" content="#f2f0ea">
     <style>
         :root {
-            --bg: #f3f3f3;
-            --surface: #ffffff;
-            --text: #111111;
-            --muted: #555555;
-            --accent: #e10600;
+            --bg: #f2f0ea;
+            --surface: #f2f0ea;
+            --text: #171816;
+            --muted: #5c5e56;
+            --accent: #a6321b;
         }
 
         body {
             margin: 0;
-            font-family: Inter, sans-serif;
+            font-family: Arial, sans-serif;
             background: var(--bg);
             color: var(--text);
             padding: 40px 20px;
@@ -26,14 +29,20 @@
             max-width: 840px;
             margin: 0 auto;
             background: var(--surface);
-            border-radius: 16px;
-            padding: 36px 24px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            padding: 20px 0 40px;
         }
 
         h1, h2 {
             margin-top: 0;
+            color: var(--text);
+            letter-spacing: -.035em;
         }
+
+        h1 { font-size: clamp(36px, 7vw, 60px); line-height: 1.1; }
+        h2 { border-top: 1px solid #cccfc2; padding-top: 24px; }
+        a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+        a { text-underline-offset: 4px; overflow-wrap: anywhere; }
+        .home { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 36px; }
 
         h2 {
             margin-top: 28px;
@@ -47,13 +56,14 @@
 
         a {
             color: var(--accent);
-            text-decoration: none;
+            text-decoration: underline;
             font-weight: 600;
         }
     </style>
 </head>
 <body>
 <main>
+    <a class="home" href="/">← LQVE / Home</a>
     <h1>Privacy Policy</h1>
     <p>Effective date: February 21, 2026</p>
     <p>LQVE Solutions collects information submitted through the contact form, including your name, company, email/contact details, and message, to respond to inquiries and discuss services.</p>
