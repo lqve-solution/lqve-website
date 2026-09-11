@@ -1,10 +1,10 @@
 {
-  "name": "LQVE Solutions",
+  "name": "LQVE — Advertising, Creative & Growth",
   "short_name": "LQVE",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f3f3f3",
-  "theme_color": "#111111",
+  "background_color": "#f2f0ea",
+  "theme_color": "#d9ff3f",
   "icons": [
     {
       "src": "favicon-32.png",
